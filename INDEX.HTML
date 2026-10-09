@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G.M.M ESCAPE | Luxury Apartments & Airbnbs</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        airbnb: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                            900: '#881337'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('explore')">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-airbnb-600 to-rose-400 flex items-center justify-center text-white shadow-lg shadow-rose-500/25">
+                    <i class="fa-solid fa-house-chimney text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-slate-900">G.M.M <span class="text-airbnb-600">ESCAPE</span></span>
+                    <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Luxury Stays & Airbnbs</span>
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <button onclick="switchTab('explore')" id="nav-explore" class="font-semibold text-airbnb-600 transition hover:text-airbnb-700">Explore Stays</button>
+                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="font-medium text-slate-600 transition hover:text-airbnb-600 flex items-center gap-1.5">
+                    <i class="fa-solid fa-suitcase-rolling"></i> My Trips <span id="trips-badge" class="ml-1 bg-airbnb-100 text-airbnb-700 text-xs px-2 py-0.5 rounded-full font-extrabold">0</span>
+                </button>
+                <button onclick="switchTab('host')" id="nav-host" class="font-medium text-slate-600 transition hover:text-airbnb-600">Host with Us</button>
+            </nav>
+
+            <!-- User Quick Actions -->
+            <div class="flex items-center space-x-4">
+                <button onclick="switchTab('explore')" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-slate-900 text-white font-semibold text-xs tracking-wider uppercase hover:bg-slate-800 transition shadow">
+                    Book Your Stay
+                </button>
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl text-slate-600 hover:bg-slate-100">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchTab('explore'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg font-semibold text-slate-700 hover:bg-slate-50">Explore Stays</button>
+            <button onclick="switchTab('dashboard'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg font-semibold text-slate-700 hover:bg-slate-50 flex items-center justify-between">
+                <span>My Trips</span>
+                <span id="mobile-trips-badge" class="bg-airbnb-100 text-airbnb-700 text-xs px-2 py-0.5 rounded-full font-extrabold">0</span>
+            </button>
+            <button onclick="switchTab('host'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg font-semibold text-slate-700 hover:bg-slate-50">Host with Us</button>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <!-- TAB VIEW: EXPLORE -->
+        <section id="view-explore" class="tab-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            
+            <!-- Hero Banner -->
+            <div class="relative bg-slate-900 text-white rounded-3xl overflow-hidden mb-10 shadow-xl">
+                <div class="absolute inset-0 opacity-45 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=1600')"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/70 to-transparent"></div>
+                <div class="relative px-8 sm:px-14 py-16 sm:py-20 max-w-2xl">
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-airbnb-500/20 text-rose-300 border border-airbnb-500/30 mb-4">
+                        <i class="fa-solid fa-star text-amber-400"></i> Premium Airbnb Collection
+                    </span>
+                    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
+                        Find Your Perfect Sanctuary with G.M.M ESCAPE
+                    </h1>
+                    <p class="text-slate-300 text-sm sm:text-base font-light mb-8">
+                        From cozy minimalist bed-sitters to sprawling 3-bedroom luxury executive penthouses. Experience unmatched hospitality and comfort.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="filterByRoomType('all')" class="px-5 py-2.5 rounded-xl bg-airbnb-600 text-white text-xs font-bold tracking-wide shadow-lg shadow-airbnb-600/30">Explore All</button>
+                        <button onclick="filterByRoomType('3 Bedroom')" class="px-5 py-2.5 rounded-xl bg-white/10 backdrop-blur-md text-white text-xs font-bold tracking-wide border border-white/20 hover:bg-white/20 transition">View Penthouses</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Categories Bar -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 pb-4 border-b border-slate-200">
+                <!-- Room Type Filters -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <button onclick="filterByRoomType('all')" id="filter-btn-all" class="px-4 py-2.5 rounded-2xl text-xs font-bold bg-slate-900 text-white shadow-sm transition">All Units</button>
+                    <button onclick="filterByRoomType('Bed-sitter')" id="filter-btn-Bed-sitter" class="px-4 py-2.5 rounded-2xl text-xs font-bold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition">Bed-sitters</button>
+                    <button onclick="filterByRoomType('1 Bedroom')" id="filter-btn-1 Bedroom" class="px-4 py-2.5 rounded-2xl text-xs font-bold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition">1 Bedroom</button>
+                    <button onclick="filterByRoomType('2 Bedroom')" id="filter-btn-2 Bedroom" class="px-4 py-2.5 rounded-2xl text-xs font-bold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition">2 Bedrooms</button>
+                    <button onclick="filterByRoomType('3 Bedroom')" id="filter-btn-3 Bedroom" class="px-4 py-2.5 rounded-2xl text-xs font-bold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition">3 Bedrooms</button>
+                </div>
+
+                <!-- Currency & Search -->
+                <div class="flex items-center gap-3 w-full md:w-auto">
+                    <div class="relative flex-grow md:flex-grow-0">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+                        <input type="text" id="search-input" oninput="handleSearch()" placeholder="Search location or title..." 
+                            class="w-full md:w-64 pl-10 pr-4 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-airbnb-500 bg-white">
+                    </div>
+                    <select id="currency-select" onchange="changeCurrency()" class="px-3 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 bg-white cursor-pointer">
+                        <option value="KES">KES (KSh)</option>
+                        <option value="USD">USD ($)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Listings Grid -->
+            <div id="listings-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Populated via JavaScript -->
+            </div>
+        </section>
+
+        <!-- TAB VIEW: MY TRIPS / DASHBOARD -->
+        <section id="view-dashboard" class="tab-view hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-slate-900">My Trips & Reservations</h1>
+                    <p class="text-slate-500 text-sm mt-1">Manage your upcoming Airbnb stays, view check-in details, or cancel reservations.</p>
+                </div>
+                <button onclick="switchTab('explore')" class="px-5 py-2.5 rounded-xl bg-airbnb-600 text-white font-bold text-xs shadow-md shadow-airbnb-600/20 hover:bg-airbnb-700 transition">
+                    <i class="fa-solid fa-plus mr-1"></i> Book Another Stay
+                </button>
+            </div>
+
+            <!-- Empty Trips State -->
+            <div id="trips-empty" class="hidden bg-white rounded-3xl border border-slate-200 p-12 text-center max-w-lg mx-auto my-12 shadow-sm">
+                <div class="w-16 h-16 rounded-2xl bg-rose-50 text-airbnb-600 flex items-center justify-center text-2xl mx-auto mb-4">
+                    <i class="fa-solid fa-plane-slash"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 mb-1">No Booked Trips Yet</h3>
+                <p class="text-slate-500 text-xs mb-6 leading-relaxed">You haven't booked any Airbnbs with G.M.M ESCAPE yet. Explore our stunning bed-sitters and apartments to begin your journey!</p>
+                <button onclick="switchTab('explore')" class="px-6 py-3 rounded-xl bg-airbnb-600 text-white font-bold text-xs shadow hover:bg-airbnb-700 transition">
+                    Explore Listings
+                </button>
+            </div>
+
+            <!-- Trips Grid -->
+            <div id="trips-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Populated via JavaScript -->
+            </div>
+        </section>
+
+        <!-- TAB VIEW: HOST WITH US -->
+        <section id="view-host" class="tab-view hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-xl p-8 sm:p-12 text-center">
+                <div class="w-16 h-16 rounded-2xl bg-rose-50 text-airbnb-600 flex items-center justify-center text-3xl mx-auto mb-6">
+                    <i class="fa-solid fa-handshake-angle"></i>
+                </div>
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-3">Become a G.M.M ESCAPE Host</h1>
+                <p class="text-slate-600 text-sm max-w-xl mx-auto mb-8">
+                    Do you own a bed-sitter, luxury 1, 2, or 3-bedroom apartment? Partner with G.M.M ESCAPE to maximize your rental income with our professional guest management and marketing.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left mb-10">
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                        <div class="text-airbnb-600 text-lg font-bold mb-2"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">Guaranteed Payouts</h4>
+                        <p class="text-xs text-slate-500">On-time disbursement for every completed booking.</p>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                        <div class="text-airbnb-600 text-lg font-bold mb-2"><i class="fa-solid fa-broom"></i></div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">Professional Cleaning</h4>
+                        <p class="text-xs text-slate-500">Top-tier cleaning crew between guest rotations.</p>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                        <div class="text-airbnb-600 text-lg font-bold mb-2"><i class="fa-solid fa-chart-line"></i></div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">Dynamic Pricing</h4>
+                        <p class="text-xs text-slate-500">Optimized nightly rates for maximum occupancy.</p>
+                    </div>
+                </div>
+                <button onclick="alertHostSuccess()" class="px-8 py-4 rounded-xl bg-airbnb-600 text-white font-bold text-sm shadow-lg shadow-airbnb-600/30 hover:bg-airbnb-700 transition">
+                    Apply to List Your Property
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BOOKING & DETAILS MODAL -->
+    <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm hidden p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-3xl w-full mx-auto shadow-2xl overflow-hidden border border-slate-100 transform transition-all my-8">
+            <!-- Modal Header with Image -->
+            <div class="relative h-64 sm:h-72 bg-slate-900">
+                <img id="modal-img" src="" alt="Listing" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-slate-800 flex items-center justify-center transition font-bold shadow">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <div class="absolute bottom-4 left-6 right-6 text-white">
+                    <span id="modal-category" class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-airbnb-600 text-white mb-2 inline-block"></span>
+                    <h2 id="modal-title" class="text-2xl sm:text-3xl font-extrabold tracking-tight"></h2>
+                    <p id="modal-location" class="text-xs text-slate-300 mt-1"><i class="fa-solid fa-location-dot mr-1 text-airbnb-500"></i> Location</p>
+                </div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 sm:p-8 space-y-6 max-h-[60vh] overflow-y-auto">
+                <!-- Description & Amenities -->
+                <div>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">About This Space</h3>
+                    <p id="modal-description" class="text-slate-600 text-sm leading-relaxed"></p>
+                </div>
+
+                <!-- Amenities Pills -->
+                <div>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Amenities Included</h3>
+                    <div id="modal-amenities" class="flex flex-wrap gap-2">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Booking Form Parameters -->
+                <form id="booking-form" onsubmit="submitBooking(event)" class="pt-6 border-t border-slate-100 space-y-4">
+                    <input type="hidden" id="modal-listing-id">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Check-in Date</label>
+                            <input type="date" id="check-in-date" required onchange="calculateTotal()"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:ring-2 focus:ring-airbnb-500 bg-slate-50">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Check-out Date</label>
+                            <input type="date" id="check-out-date" required onchange="calculateTotal()"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:ring-2 focus:ring-airbnb-500 bg-slate-50">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Guest Full Name</label>
+                            <input type="text" id="guest-name" required placeholder="e.g. David Kimani"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:ring-2 focus:ring-airbnb-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Number of Guests</label>
+                            <select id="guest-count" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:ring-2 focus:ring-airbnb-500 bg-white">
+                                <option value="1">1 Guest</option>
+                                <option value="2" selected>2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4+ Guests</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Price breakdown box -->
+                    <div class="bg-rose-50/60 border border-rose-100 rounded-2xl p-4 flex items-center justify-between">
+                        <div>
+                            <span id="price-calculation-text" class="text-xs text-slate-600 font-medium">Select dates to calculate total</span>
+                            <div class="text-[10px] text-airbnb-700 font-semibold mt-0.5"><i class="fa-solid fa-shield-check mr-1"></i> Free cancellation up to 48 hours before check-in</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-400 block uppercase font-bold">Total Amount</span>
+                            <span id="modal-total-price" class="text-2xl font-extrabold text-airbnb-700">0</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-end gap-3 pt-2">
+                        <button type="button" onclick="closeModal()" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-50 transition">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-8 py-3 rounded-xl bg-airbnb-600 hover:bg-airbnb-700 text-white font-bold text-xs shadow-lg shadow-airbnb-600/30 transition">
+                            Confirm Reservation
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-xl bg-airbnb-600 flex items-center justify-center text-white font-bold">
+                    <i class="fa-solid fa-house-chimney text-sm"></i>
+                </div>
+                <span class="text-base font-extrabold text-white tracking-tight">G.M.M ESCAPE</span>
+            </div>
+            <p class="text-xs text-slate-500">© 2026 G.M.M ESCAPE Airbnbs. All rights reserved.</p>
+            <div class="flex space-x-5 text-sm">
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Currency configuration (Base stored in KES)
+        let currentCurrency = 'KES';
+        const usdRate = 130; // 1 USD = 130 KES approx
+
+        // Realistic Listings Database
+        const LISTINGS = [
+            {
+                id: 'gmm-01',
+                title: 'Cozy Modern Minimalist Bed-sitter',
+                type: 'Bed-sitter',
+                location: 'Kilimani, Nairobi',
+                priceKES: 3200,
+                rating: 4.85,
+                reviewsCount: 42,
+                image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800',
+                description: 'A stylish, well-lit studio bed-sitter featuring high-speed Wi-Fi, a smart TV with Netflix, a comfortable queen bed, and a compact kitchenette equipped for basic cooking.',
+                amenities: ['Fast Wi-Fi', 'Smart TV', 'Kitchenette', 'Hot Shower', 'Secure Parking', 'Elevator']
+            },
+            {
+                id: 'gmm-02',
+                title: 'Urban Chic Studio Bed-sitter w/ Balcony',
+                type: 'Bed-sitter',
+                location: 'Westlands, Nairobi',
+                priceKES: 4000,
+                rating: 4.92,
+                reviewsCount: 68,
+                image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800',
+                description: 'Enjoy skyline sunsets from your private balcony. This upscale bed-sitter is right in the heart of Westlands close to top restaurants, malls, and nightlife.',
+                amenities: ['Fast Wi-Fi', 'Balcony', 'Smart TV', 'Kitchenette', 'Gym Access', '24/7 Security']
+            },
+            {
+                id: 'gmm-03',
+                title: 'Luxury 1-Bedroom Executive Apartment',
+                type: '1 Bedroom',
+                location: 'Kileleshwa, Nairobi',
+                priceKES: 6500,
+                rating: 4.96,
+                reviewsCount: 94,
+                image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800',
+                description: 'Spacious 1-bedroom apartment with a separate living room, plush velvet sofa, king-sized bed, fully equipped chef kitchen, and washing machine.',
+                amenities: ['Fast Wi-Fi', 'Swimming Pool', 'Full Kitchen', 'Washing Machine', 'Smart TV', 'Free Parking']
+            },
+            {
+                id: 'gmm-04',
+                title: 'Serene 1-Bedroom Garden Oasis',
+                type: '1 Bedroom',
+                location: 'Lavington, Nairobi',
+                priceKES: 7200,
+                rating: 4.90,
+                reviewsCount: 51,
+                image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800',
+                description: 'Quiet leafy suburb retreat featuring a gorgeous private patio overlooking manicured gardens, high-speed fiber internet, and backup generator.',
+                amenities: ['Fast Wi-Fi', 'Garden Patio', 'Backup Generator', 'Full Kitchen', 'Smart TV', 'Pet Friendly']
+            },
+            {
+                id: 'gmm-05',
+                title: 'Modern 2-Bedroom City View Suite',
+                type: '2 Bedroom',
+                location: 'Upperhill, Nairobi',
+                priceKES: 11000,
+                rating: 4.94,
+                reviewsCount: 83,
+                image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
+                description: 'Ideal for small families or business colleagues. Two ensuite bedrooms, expansive living and dining area, rooftop infinity pool access.',
+                amenities: ['Fast Wi-Fi', 'Rooftop Pool', '2 En-suite Baths', 'Full Kitchen', 'Gym Access', 'Elevator']
+            },
+            {
+                id: 'gmm-06',
+                title: 'Designer 2-Bedroom Executive Haven',
+                type: '2 Bedroom',
+                location: 'Parklands, Nairobi',
+                priceKES: 12500,
+                rating: 4.98,
+                reviewsCount: 116,
+                image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800',
+                description: 'Breathtaking interior design with mood lighting, smart home integration, Netflix on 65" OLED TV, and premium orthopedic mattresses.',
+                amenities: ['Fast Wi-Fi', 'Smart Home', '65" OLED TV', 'Full Kitchen', 'Balcony', '24/7 Security']
+            },
+            {
+                id: 'gmm-07',
+                title: 'Magnificent 3-Bedroom Penthouse Suite',
+                type: '3 Bedroom',
+                location: 'Kilimani, Nairobi',
+                priceKES: 22000,
+                rating: 5.0,
+                reviewsCount: 142,
+                image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800',
+                description: 'The pinnacle of luxury living. Three ensuite king bedrooms, massive open-concept lounge, private rooftop terrace, Jacuzzi, and dedicated parking.',
+                amenities: ['Fast Wi-Fi', 'Private Jacuzzi', 'Rooftop Terrace', 'Full Kitchen', 'Elevator', '2 Parking Spaces']
+            },
+            {
+                id: 'gmm-08',
+                title: 'Grand 3-Bedroom Family Villa Apartment',
+                type: '3 Bedroom',
+                location: 'Karen, Nairobi',
+                priceKES: 25000,
+                rating: 4.97,
+                reviewsCount: 79,
+                image: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&q=80&w=800',
+                description: 'Nestled in serene Karen. Surrounded by nature, featuring a fireplace, expansive lawn access, children play area, and high-end modern amenities.',
+                amenities: ['Fast Wi-Fi', 'Fireplace', 'Lawn Access', 'Full Kitchen', 'Workspace', 'Secure Parking']
+            }
+        ];
+
+        // Bookings state
+        let trips = [
+            {
+                bookingId: 'GMM-8921',
+                listingId: 'gmm-01',
+                title: 'Cozy Modern Minimalist Bed-sitter',
+                type: 'Bed-sitter',
+                location: 'Kilimani, Nairobi',
+                image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800',
+                checkIn: '2026-05-10',
+                checkOut: '2026-05-15',
+                nights: 5,
+                guestName: 'Sarah Jenkins',
+                guestsCount: 2,
+                totalKES: 16000,
+                status: 'Confirmed'
+            }
+        ];
+
+        let activeCategoryFilter = 'all';
+
+        // Window load initialization
+        window.onload = function() {
+            renderListings(LISTINGS);
+            renderTrips();
+            updateTripsBadge();
+
+            // Default dates in modal
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const nextWeek = new Date();
+            nextWeek.setDate(nextWeek.getDate() + 4);
+
+            document.getElementById('check-in-date').value = tomorrow.toISOString().split('T')[0];
+            document.getElementById('check-out-date').value = nextWeek.toISOString().split('T')[0];
+        };
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById('view-' + tabId);
+            if(target) target.classList.remove('hidden');
+
+            // Nav active states
+            ['explore', 'dashboard', 'host'].forEach(t => {
+                const btn = document.getElementById('nav-' + t);
+                if(btn) {
+                    if(t === tabId) {
+                        btn.className = "font-semibold text-airbnb-600 transition hover:text-airbnb-700";
+                    } else {
+                        btn.className = "font-medium text-slate-600 transition hover:text-airbnb-600";
+                    }
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if(menu) menu.classList.toggle('hidden');
+        }
+
+        function changeCurrency() {
+            currentCurrency = document.getElementById('currency-select').value;
+            renderListings(getFilteredListings());
+            renderTrips();
+        }
+
+        function formatPrice(kesAmount) {
+            if(currentCurrency === 'USD') {
+                const usd = Math.round(kesAmount / usdRate);
+                return `$${usd.toLocaleString()} USD`;
+            } else {
+                return `KSh ${kesAmount.toLocaleString()}`;
+            }
+        }
+
+        function renderListings(list) {
+            const container = document.getElementById('listings-grid');
+            if(!container) return;
+
+            if(list.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-16 text-slate-500 text-sm">No apartments found matching your criteria.</div>`;
+                return;
+            }
+
+            container.innerHTML = list.map(item => `
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition flex flex-col justify-between group">
+                    <div>
+                        <div class="relative h-56 overflow-hidden bg-slate-100 cursor-pointer" onclick="openBookingModal('${item.id}')">
+                            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-slate-900 text-[10px] font-extrabold px-3 py-1 rounded-full shadow-sm uppercase tracking-wider">
+                                ${item.type}
+                            </span>
+                            <span class="absolute top-3 right-3 bg-slate-900/70 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                                <i class="fa-solid fa-star text-amber-400 text-[10px]"></i> ${item.rating}
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="text-[11px] font-semibold text-slate-400 mb-1 flex items-center">
+                                <i class="fa-solid fa-location-dot text-airbnb-500 mr-1"></i> ${item.location}
+                            </div>
+                            <h3 class="text-sm font-bold text-slate-900 mb-2 line-clamp-1 group-hover:text-airbnb-600 transition cursor-pointer" onclick="openBookingModal('${item.id}')">
+                                ${item.title}
+                            </h3>
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                ${item.amenities.slice(0, 3).map(a => `<span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-medium">${a}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 flex items-center justify-between border-t border-slate-100 mt-2">
+                        <div>
+                            <span class="text-base font-extrabold text-slate-900">${formatPrice(item.priceKES)}</span>
+                            <span class="text-[11px] text-slate-400 block font-medium">night</span>
+                        </div>
+                        <button onclick="openBookingModal('${item.id}')" class="px-4 py-2 rounded-xl bg-airbnb-50 text-airbnb-700 font-bold text-xs hover:bg-airbnb-600 hover:text-white transition shadow-sm">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterByRoomType(type) {
+            activeCategoryFilter = type;
+            
+            // Highlight filter buttons
+            ['all', 'Bed-sitter', '1 Bedroom', '2 Bedroom', '3 Bedroom'].forEach(t => {
+                const btn = document.getElementById('filter-btn-' + t);
+                if(btn) {
+                    if(t === type) {
+                        btn.className = "px-4 py-2.5 rounded-2xl text-xs font-bold bg-slate-900 text-white shadow-sm transition";
+                    } else {
+                        btn.className = "px-4 py-2.5 rounded-2xl text-xs font-bold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition";
+                    }
+                }
+            });
+
+            renderListings(getFilteredListings());
+        }
+
+        function getFilteredListings() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            return LISTINGS.filter(item => {
+                const matchesType = (activeCategoryFilter === 'all' || item.type === activeCategoryFilter);
+                const matchesSearch = item.title.toLowerCase().includes(query) || item.location.toLowerCase().includes(query) || item.type.toLowerCase().includes(query);
+                return matchesType && matchesSearch;
+            });
+        }
+
+        function handleSearch() {
+            renderListings(getFilteredListings());
+        }
+
+        let selectedListingForModal = null;
+
+        function openBookingModal(listingId) {
+            selectedListingForModal = LISTINGS.find(l => l.id === listingId);
+            if(!selectedListingForModal) return;
+
+            document.getElementById('modal-listing-id').value = selectedListingForModal.id;
+            document.getElementById('modal-img').src = selectedListingForModal.image;
+            document.getElementById('modal-category').textContent = selectedListingForModal.type;
+            document.getElementById('modal-title').textContent = selectedListingForModal.title;
+            document.getElementById('modal-location').innerHTML = `<i class="fa-solid fa-location-dot mr-1 text-airbnb-500"></i> ${selectedListingForModal.location}`;
+            document.getElementById('modal-description').textContent = selectedListingForModal.description;
+            
+            const amenitiesContainer = document.getElementById('modal-amenities');
+            amenitiesContainer.innerHTML = selectedListingForModal.amenities.map(a => `
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold">
+                    <i class="fa-solid fa-check text-airbnb-600 text-[10px]"></i> ${a}
+                </span>
+            `).join('');
+
+            calculateTotal();
+            document.getElementById('booking-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('booking-modal').classList.add('hidden');
+        }
+
+        function calculateTotal() {
+            if(!selectedListingForModal) return;
+
+            const checkIn = new Date(document.getElementById('check-in-date').value);
+            const checkOut = new Date(document.getElementById('check-out-date').value);
+            const diffTime = checkOut - checkIn;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            const calcText = document.getElementById('price-calculation-text');
+            const totalEl = document.getElementById('modal-total-price');
+
+            if(diffDays > 0) {
+                const totalKES = diffDays * selectedListingForModal.priceKES;
+                calcText.textContent = `${formatPrice(selectedListingForModal.priceKES)} × ${diffDays} night${diffDays > 1 ? 's' : ''}`;
+                totalEl.textContent = formatPrice(totalKES);
+            } else {
+                calcText.textContent = "Check-out date must be after check-in date";
+                totalEl.textContent = formatPrice(0);
+            }
+        }
+
+        function submitBooking(event) {
+            event.preventDefault();
+
+            const checkIn = document.getElementById('check-in-date').value;
+            const checkOut = document.getElementById('check-out-date').value;
+            const guestName = document.getElementById('guest-name').value;
+            const guestsCount = document.getElementById('guest-count').value;
+
+            const diffTime = new Date(checkOut) - new Date(checkIn);
+            const nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if(nights <= 0) {
+                alert("Please select valid check-in and check-out dates.");
+                return;
+            }
+
+            const totalKES = nights * selectedListingForModal.priceKES;
+
+            const newTrip = {
+                bookingId: 'GMM-' + Math.floor(1000 + Math.random() * 9000),
+                listingId: selectedListingForModal.id,
+                title: selectedListingForModal.title,
+                type: selectedListingForModal.type,
+                location: selectedListingForModal.location,
+                image: selectedListingForModal.image,
+                checkIn: checkIn,
+                checkOut: checkOut,
+                nights: nights,
+                guestName: guestName,
+                guestsCount: guestsCount,
+                totalKES: totalKES,
+                status: 'Confirmed'
+            };
+
+            trips.unshift(newTrip);
+            updateTripsBadge();
+            renderTrips();
+            closeModal();
+
+            // Switch to dashboard / trips view
+            switchTab('dashboard');
+        }
+
+        function updateTripsBadge() {
+            const activeCount = trips.filter(t => t.status === 'Confirmed').length;
+            const b1 = document.getElementById('trips-badge');
+            const b2 = document.getElementById('mobile-trips-badge');
+            if(b1) b1.textContent = activeCount;
+            if(b2) b2.textContent = activeCount;
+        }
+
+        function renderTrips() {
+            const container = document.getElementById('trips-grid');
+            const emptyState = document.getElementById('trips-empty');
+            if(!container || !emptyState) return;
+
+            if(trips.length === 0) {
+                container.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            container.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            container.innerHTML = trips.map(t => {
+                const isConfirmed = t.status === 'Confirmed';
+                return `
+                    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-44 bg-slate-100">
+                                <img src="${t.image}" alt="${t.title}" class="w-full h-full object-cover">
+                                <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold ${isConfirmed ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                                    ${t.status}
+                                </span>
+                                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-slate-900 text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase">
+                                    ${t.type}
+                                </span>
+                            </div>
+                            <div class="p-5">
+                                <div class="text-[11px] font-bold text-slate-400 mb-1">ID: ${t.bookingId}</div>
+                                <h3 class="text-sm font-bold text-slate-900 mb-1.5">${t.title}</h3>
+                                <div class="text-xs text-slate-500 mb-3"><i class="fa-solid fa-location-dot text-airbnb-500 mr-1"></i> ${t.location}</div>
+                                
+                                <div class="bg-slate-50 rounded-xl p-3 space-y-1.5 text-xs text-slate-600 border border-slate-100">
+                                    <div class="flex justify-between"><span class="text-slate-400">Check-in:</span> <strong class="text-slate-800">${t.checkIn}</strong></div>
+                                    <div class="flex justify-between"><span class="text-slate-400">Check-out:</span> <strong class="text-slate-800">${t.checkOut}</strong> (${t.nights} nights)</div>
+                                    <div class="flex justify-between"><span class="text-slate-400">Guest:</span> <strong class="text-slate-800">${t.guestName}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex items-center justify-between border-t border-slate-100 mt-3">
+                            <div>
+                                <span class="text-xs text-slate-400 block">Total Paid</span>
+                                <span class="text-base font-extrabold text-airbnb-700">${formatPrice(t.totalKES)}</span>
+                            </div>
+                            ${isConfirmed ? `
+                                <button onclick="cancelTrip('${t.bookingId}')" class="px-4 py-2 rounded-xl border border-rose-200 text-rose-600 font-bold text-xs hover:bg-rose-50 transition">
+                                    Cancel Booking
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function cancelTrip(bookingId) {
+            const trip = trips.find(t => t.bookingId === bookingId);
+            if(trip) {
+                trip.status = 'Cancelled';
+                updateTripsBadge();
+                renderTrips();
+            }
+        }
+
+        function alertHostSuccess() {
+            alert("Thank you for your interest in hosting with G.M.M ESCAPE! Our partnership team has received your inquiry and will contact you via phone within 24 hours.");
+        }
+    </script>
+</body>
+</html>
